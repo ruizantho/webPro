@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookies</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Informations sur les cookies</h1>
+        <p id="cookie-info"></p>
+        <button onclick="clearCookie()">Effacer le cookie</button>
+        <a href="/">Retour</a>
+    </div>
+    
+    <script>
+        function getCookie() {
+            fetch('/getCookie.html')
+                .then(response => response.json())
+                .then(cookies => {
+                    document.getElementById('cookie-info').textContent = 
+                        JSON.stringify(cookies, null, 2);
+                })
+                .catch(error => console.error('Erreur lors de la récupération des cookies:', error));
+        }
+        
+        function clearCookie() {
+            fetch('/clearCookie.html')
+                .then(() => {
+                    document.getElementById('cookie-info').textContent = 
+                        'Les cookies ont été effacés.';
+                })
+                .catch(error => console.error('Erreur lors de l’effacement des cookies:', error));
+        }
+
+        getCookie();
+    </script>
+</body>
+</html>

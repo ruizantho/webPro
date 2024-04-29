@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="annonceApp"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annonces</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="annonce.js"></script>
+    <link href="/style.css" rel="stylesheet"/>
+</head>
+<body ng-controller="AnnonceController">
+    <form action="/logout" method="post">
+        <button type="submit">Se deconnecter</button>
+    </form>
+    <p>Bienvenue, {{ username }} !</p>
+    <h1>Page Annonces</h1>
+    <ul>
+        <li class="card" ng-repeat="annonce in annonces">
+            <h3>{{ annonce.titre }}</h3>
+            <p>{{ annonce.texte }}</p>
+            <img src ="{{ annonce.img }}"></img>
+            <p class="date">Date de publication: {{ annonce.date }}</p>
+        </li>
+    </ul>    
+    <li><a href="/aPropos.html">Aller sur la page à propos</a></li>
+</body>
+</html>
