@@ -10,7 +10,7 @@ const PORT = 8080;
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
+    user: 'ruiz',
     password: 'ruiz',
     database: 'bdnodejs'
 });
