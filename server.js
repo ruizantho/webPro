@@ -3,16 +3,27 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 
 const app = express();
-const PORT = 8080;
+const PORT = 3000;
+
+
+// Chemins vers votre clé privée et certificat
+const privateKey = fs.readFileSync(path.join(__dirname, 'certs', 'key.pem'), 'utf8');
+const certificate = fs.readFileSync(path.join(__dirname, 'certs', 'cert.pem'), 'utf8');
+
+const credentials = { key: privateKey, cert: certificate };
+
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'ruiz',
-    password: 'ruiz',
-    database: 'bdnodejs'
+    host: 'db',
+    user: 'user',
+    password: 'password',
+    database: 'bdnodejs',
 });
 
 connection.connect((err) => {
@@ -112,6 +123,10 @@ app.post('/logout', (req, res) => {
     res.redirect('/index.html');
 });
 
-app.listen(PORT, () => {
-    console.log(`Serveur démarré sur le port ${PORT}`);
+// Création du serveur HTTPS
+const httpsServer = https.createServer(credentials, app);
+
+
+httpsServer.listen(3000, () => {
+  console.log('HTTPS Server running on port 3000');
 });
